@@ -1,6 +1,7 @@
 import React from 'react';
 import { shape, string, func } from 'prop-types';
 import { getProductsById } from '../services/api';
+import ShoppingCartButton from '../components/ShoppingCartButton';
 
 class Details extends React.Component {
   constructor() {
@@ -32,12 +33,13 @@ class Details extends React.Component {
             <button
               data-testid="product-detail-add-to-cart"
               type="submit"
-              onClick={ addProductToCart }
+              onClick={ () => addProductToCart(product[0]) }
             >
               Adicionar ao carrinho
             </button>
           </div>
         )) }
+        <ShoppingCartButton />
       </>
     );
   }

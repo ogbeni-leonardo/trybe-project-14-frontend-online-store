@@ -22,14 +22,16 @@ class Content extends Component {
           path="/shopping-cart"
           component={ () => <ShoppingCart cartItems={ cartItems } /> }
         />
-        <Route path="/details/:id" render={ (props) => <Details { ...props } /> } />
+        <Route
+          path="/details/:id"
+          render={ (props) => (
+            <Details { ...props } addProductToCart={ addProductToCart } />
+          ) }
+        />
       </>
     );
   }
 }
-Content.propTypes = {
-  addProductToCart: func.isRequired,
-};
 
 Content.propTypes = {
   cartItems: arrayOf(shape({})).isRequired,
