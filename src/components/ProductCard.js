@@ -15,6 +15,7 @@ class ProductCard extends Component {
         <Link to={ `/details/${id}` } data-testid="product-detail-link">Detalhes</Link>
         <button
           type="button"
+          data-testid="product-add-to-cart"
           onClick={ () => addProductToCart(product) }
         >
           Adicionar ao carrinho
