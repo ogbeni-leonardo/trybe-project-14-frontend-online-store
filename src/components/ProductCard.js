@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { shape, string, number } from 'prop-types';
+import { shape, string, number, func } from 'prop-types';
 
 class ProductCard extends Component {
   render() {
-    const { product } = this.props;
+    const { product, addProductToCart } = this.props;
     const { id, title, price, thumbnail } = product;
 
     return (
@@ -13,6 +13,13 @@ class ProductCard extends Component {
         <img src={ thumbnail } alt={ title } />
         <p>{ price }</p>
         <Link to={ `/details/${id}` } data-testid="product-detail-link">Detalhes</Link>
+        <button
+          type="button"
+          data-testid="product-add-to-cart"
+          onClick={ () => addProductToCart(product) }
+        >
+          Adicionar ao carrinho
+        </button>
       </li>
     );
   }
@@ -20,10 +27,11 @@ class ProductCard extends Component {
 
 ProductCard.propTypes = {
   product: shape({
-    title: string.isRequired,
-    price: number.isRequired,
-    thumbnail: string.isRequired,
+    title: string,
+    price: number,
+    thumbnail: string,
   }).isRequired,
+  addProductToCart: func.isRequired,
 };
 
 export default ProductCard;
