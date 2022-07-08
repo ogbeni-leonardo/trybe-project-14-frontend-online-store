@@ -1,17 +1,18 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import Routes from './Routes';
-import CategorySideBar from './components/CategorySideBar';
+import React, { Component } from 'react';
+import { BrowserRouter, Switch } from 'react-router-dom';
 
-function App() {
-  return (
-    <BrowserRouter>
-      <div>
-        <CategorySideBar />
-        <Routes />
-      </div>
-    </BrowserRouter>
-  );
+import Routes from './Routes';
+
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Routes />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;

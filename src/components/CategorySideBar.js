@@ -1,39 +1,36 @@
-import React from 'react';
+import React, { Component } from 'react';
+
 import { getCategories } from '../services/api';
 
-class CategorySideBar extends React.Component {
+class CategorySideBar extends Component {
   constructor() {
     super();
+
     this.categoryFetcher = this.categoryFetcher.bind(this);
-    this.createListFromCategories = this.createListFromCategories.bind(this);
     this.state = { categories: [] };
   }
 
-  componentDidMount() {
-    this.categoryFetcher();
-  }
+  componentDidMount() { this.categoryFetcher(); }
 
   async categoryFetcher() {
     const listOfCategories = await getCategories();
-    this.setState({
-      categories: [...listOfCategories],
-    });
-  }
-
-  createListFromCategories() {
-    const { categories } = this.state;
-    return categories.map((category) => (
-      <li data-testid="category" key={ category.id }>
-        <input type="radio" id={ category.id } />
-        <label htmlFor={ category.id }>{category.name}</label>
-      </li>));
+    this.setState({ categories: [...listOfCategories] });
   }
 
   render() {
+    const { categories } = this.state;
+
     return (
       <aside>
         <ul>
-          { this.createListFromCategories() }
+          { categories.map(({ id, name }) => (
+            <li data-testid="category" key={ id }>
+              <label htmlFor={ id }>
+                <input type="radio" id={ id } name="category" />
+                { name }
+              </label>
+            </li>
+          )) }
         </ul>
       </aside>
     );
