@@ -27,9 +27,9 @@ class ProductCard extends Component {
 
 ProductCard.propTypes = {
   product: shape({
-    title: string.isRequired,
-    price: number.isRequired,
-    thumbnail: string.isRequired,
+    title: string,
+    price: number,
+    thumbnail: string,
   }).isRequired,
   addProductToCart: func.isRequired,
 };
