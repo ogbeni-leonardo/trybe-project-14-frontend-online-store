@@ -1,6 +1,5 @@
 import React from 'react';
-import { shape, string } from 'prop-types';
-
+import { shape, string, func } from 'prop-types';
 import { getProductsById } from '../services/api';
 
 class Details extends React.Component {
@@ -21,6 +20,7 @@ class Details extends React.Component {
 
   render() {
     const { product } = this.state;
+    const { addProductToCart } = this.props;
 
     return (
       <>
@@ -29,6 +29,13 @@ class Details extends React.Component {
             <h2 data-testid="product-detail-name">{ title }</h2>
             <img src={ thumbnail } alt={ title } />
             <p>{ price }</p>
+            <button
+              data-testid="product-detail-add-to-cart"
+              type="submit"
+              onClick={ addProductToCart }
+            >
+              Adicionar ao carrinho
+            </button>
           </div>
         )) }
       </>
@@ -40,6 +47,7 @@ Details.propTypes = {
   match: shape({
     params: shape({ id: string }),
   }).isRequired,
+  addProductToCart: func.isRequired,
 };
 
 export default Details;
