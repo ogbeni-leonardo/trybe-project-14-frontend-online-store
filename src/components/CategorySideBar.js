@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { func } from 'prop-types';
 
 import { getCategories } from '../services/api';
 
@@ -19,14 +20,21 @@ class CategorySideBar extends Component {
 
   render() {
     const { categories } = this.state;
+    const { fetchProducts } = this.props;
 
     return (
       <aside>
         <ul>
           { categories.map(({ id, name }) => (
-            <li data-testid="category" key={ id }>
-              <label htmlFor={ id }>
-                <input type="radio" id={ id } name="category" />
+            <li key={ id }>
+              <label htmlFor={ id } data-testid="category">
+                <input
+                  type="radio"
+                  id={ id }
+                  name="category"
+                  value={ id }
+                  onChange={ ({ target: { value } }) => fetchProducts(value, '') }
+                />
                 { name }
               </label>
             </li>
@@ -36,5 +44,9 @@ class CategorySideBar extends Component {
     );
   }
 }
+
+CategorySideBar.propTypes = {
+  fetchProducts: func.isRequired,
+};
 
 export default CategorySideBar;

@@ -16,7 +16,7 @@ class Details extends React.Component {
     const { match: { params: { id } } } = this.props;
 
     const product = await getProductsById(id);
-    this.setState({ product: [product] });
+    this.setState({ product });
   }
 
   render() {
