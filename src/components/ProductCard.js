@@ -11,7 +11,7 @@ class ProductCard extends Component {
         <h2>{ title }</h2>
         <img src={ thumbnail } alt={ title } />
         <p>{ price }</p>
-        <button type="button">Adicionar ao carrinho.</button>
+        <button type="button">Adicionar ao carrinho</button>
       </li>
     );
   }
