@@ -13,7 +13,7 @@ class ProductCard extends Component {
         <img src={ thumbnail } alt={ title } />
         <p>{ price }</p>
         <Link to={ `/details/${id}` } data-testid="product-detail-link">Detalhes</Link>
-        <button type="button">Adicionar ao carrinho</button>
+        <button type="button">Adicionar ao carrinho.</button>
       </li>
     );
   }
