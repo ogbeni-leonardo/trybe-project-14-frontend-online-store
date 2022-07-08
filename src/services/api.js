@@ -20,15 +20,13 @@ export async function getProductsFromCategoryAndQuery(id, query) {
   }
 }
 
-/*
-export async function getProducts(query) {
-  const URL_API = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
+export async function getProductsById(id) {
+  const URL_API = `https://api.mercadolibre.com/items/${id}`;
   try {
     const response = await fetch(URL_API);
-    const products = await response.json();
-    return products;
-  } catch (error) {
-    console.log(error);
+    const product = await response.json();
+    return [product];
+  } catch {
+    return [];
   }
 }
-*/

@@ -33,7 +33,7 @@ class Home extends React.Component {
 
     return (
       <div>
-        <CategorySideBar />
+        <CategorySideBar fetchProducts={ this.fetchProducts } />
         <SearchInput fetchProducts={ this.fetchProducts } />
         <ShoppingCartButton />
 
