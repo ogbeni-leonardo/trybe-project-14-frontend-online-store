@@ -1,37 +1,29 @@
-import React from 'react';
-import { getProducts } from '../services/api';
+import React, { Component } from 'react';
+import { func } from 'prop-types';
 
-class SearchInput extends React.Component {
+class SearchInput extends Component {
   constructor() {
     super();
 
-    this.productFetcher = this.productFetcher.bind(this);
-    this.handleSubmitButton = this.handleSubmitButton.bind(this);
-
-    this.state = {
-      products: [],
-      searchInput: '',
-    }
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.state = { searchInput: '' };
   }
 
-  componentDidMount() {
-    this.productFetcher();
+  onInputChange({ target: { value } }) {
+    this.setState({ searchInput: value });
   }
 
-  async productFetcher() {
-    const listOfProducts = await getProducts();
-    this.setState({
-      products: [...listOfProducts],
-    });
-  }
+  onSubmit(event) {
+    event.preventDefault();
 
-  handleSubmitButton() {
-// pegar o searchInput (não pode ser pq a função teria duas funções)
-// fazer a requisição
+    const { searchInput } = this.state;
+    const { fetchProducts } = this.props;
+    fetchProducts('', searchInput.trim());
   }
 
   render() {
-    const { products, searchInput } = this.state;
+    const { searchInput } = this.state;
 
     return (
       <form>
@@ -39,11 +31,13 @@ class SearchInput extends React.Component {
           type="text"
           data-testid="query-input"
           value={ searchInput }
+          onChange={ this.onInputChange }
         />
+
         <button
           type="submit"
           data-testid="query-button"
-          onClick={ this.handleSubmitButton }
+          onClick={ this.onSubmit }
         >
           Pesquisar
         </button>
@@ -51,5 +45,9 @@ class SearchInput extends React.Component {
     );
   }
 }
+
+SearchInput.propTypes = {
+  fetchProducts: func.isRequired,
+};
 
 export default SearchInput;
