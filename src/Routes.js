@@ -27,6 +27,9 @@ class Content extends Component {
     );
   }
 }
+Content.propTypes = {
+  addProductToCart: func.isRequired,
+};
 
 Content.propTypes = {
   cartItems: arrayOf(shape({})).isRequired,
