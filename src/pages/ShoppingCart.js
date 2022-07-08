@@ -7,13 +7,17 @@ class ShoppingCart extends React.Component {
 
     return (
       <div>
-        {cartItems.map(({ id, title, price, quantity }) => (
-          <div key={ id }>
-            <p data-testid="shopping-cart-product-name">{ title }</p>
-            <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
-            <p>{ price }</p>
-          </div>
-        ))}
+        { cartItems.length === 0
+          ? (
+            <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+          )
+          : cartItems.map(({ id, title, price, quantity }) => (
+            <div key={ id }>
+              <p data-testid="shopping-cart-product-name">{ title }</p>
+              <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
+              <p>{ price }</p>
+            </div>
+          ))}
       </div>
     );
   }
