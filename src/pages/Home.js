@@ -1,4 +1,5 @@
 import React from 'react';
+import { func } from 'prop-types';
 
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
@@ -30,6 +31,7 @@ class Home extends React.Component {
 
   render() {
     const { productsList, fetchSuccess } = this.state;
+    const { addProductToCart } = this.props;
 
     return (
       <div>
@@ -48,12 +50,20 @@ class Home extends React.Component {
 
         <ul>
           { productsList.map((product) => (
-            <ProductCard key={ product.id } product={ product } />
+            <ProductCard
+              key={ product.id }
+              product={ product }
+              addProductToCart={ addProductToCart }
+            />
           ))}
         </ul>
       </div>
     );
   }
 }
+
+Home.propTypes = {
+  addProductToCart: func.isRequired,
+};
 
 export default Home;
