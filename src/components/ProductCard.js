@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { shape, string, number, func } from 'prop-types';
+import { shape, string, func } from 'prop-types';
 
 class ProductCard extends Component {
   render() {
@@ -26,11 +26,7 @@ class ProductCard extends Component {
 }
 
 ProductCard.propTypes = {
-  product: shape({
-    title: string,
-    price: number,
-    thumbnail: string,
-  }).isRequired,
+  product: shape({ id: string }).isRequired,
   addProductToCart: func.isRequired,
 };
 

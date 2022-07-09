@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { arrayOf, shape, func } from 'prop-types';
+import { func } from 'prop-types';
 
 import Home from './pages/Home';
 import ShoppingCart from './pages/ShoppingCart';
 import Details from './pages/Details';
 
-class Content extends Component {
+class Routes extends Component {
   render() {
-    const { cartItems, addProductToCart } = this.props;
+    const { addProductToCart } = this.props;
 
     return (
       <>
@@ -17,25 +17,26 @@ class Content extends Component {
           path="/"
           component={ () => <Home addProductToCart={ addProductToCart } /> }
         />
-        <Route
-          exact
-          path="/shopping-cart"
-          component={ () => <ShoppingCart cartItems={ cartItems } /> }
-        />
+
         <Route
           path="/details/:id"
           render={ (props) => (
             <Details { ...props } addProductToCart={ addProductToCart } />
           ) }
         />
+
+        <Route
+          exact
+          path="/shopping-cart"
+          component={ () => <ShoppingCart addProductToCart={ addProductToCart } /> }
+        />
       </>
     );
   }
 }
 
-Content.propTypes = {
-  cartItems: arrayOf(shape({})).isRequired,
+Routes.propTypes = {
   addProductToCart: func.isRequired,
 };
 
-export default Content;
+export default Routes;

@@ -9,41 +9,49 @@ class App extends Component {
 
     this.addProductToCart = this.addProductToCart.bind(this);
     this.productQuantity = this.productQuantity.bind(this);
-
-    this.state = {
-      cartItems: [],
-    };
   }
 
-  addProductToCart(product) {
-    const { cartItems } = this.state;
+  componentDidMount() {
+    if (!localStorage.getItem('cartItems')) {
+      localStorage.setItem('cartItems', JSON.stringify([]));
+    }
+  }
+
+  addProductToCart(product, quantity) {
+    // Esta função retorna do localStorage todos os items salvos no carrinho
+    const allSavedCartItems = JSON.parse(localStorage.getItem('cartItems'));
 
     const productItem = product;
-    productItem.quantity = this.productQuantity(product);
+    // Se a quantidade de itens for informada adicione, caso contrário, verifique se tal item já existe
+    productItem.quantity = quantity || this.productQuantity(product);
 
-    const allCartItems = cartItems.filter(({ id }) => id !== product.id);
+    // Pegue dos items salvos todos exceto o item atual
+    const allCartItemsWithoutThisProduct = allSavedCartItems
+      .filter(({ id }) => id !== product.id);
 
-    this.setState({
-      cartItems: [...allCartItems, productItem],
-    });
+    // Adicione ao localStorage todos os itens anteriores exceto o atual e então o atual
+    localStorage.setItem('cartItems', JSON.stringify([
+      ...allCartItemsWithoutThisProduct,
+      productItem,
+    ]));
   }
 
   productQuantity(product) {
-    const { cartItems } = this.state;
+    const allSavedCartItems = JSON.parse(localStorage.getItem('cartItems'));
 
-    const quantity = cartItems.filter(({ id }) => id === product.id);
-    const { length } = quantity;
+    // Verificando quando produtos do mesmo tipo estão no carrinho
+    const quantityOfTheSameProduct = allSavedCartItems
+      .filter(({ id }) => id === product.id);
+    const { length } = quantityOfTheSameProduct;
 
     return length === 0 ? 1 : length + 1;
   }
 
   render() {
-    const { cartItems } = this.state;
-
     return (
       <BrowserRouter>
         <Switch>
-          <Routes cartItems={ cartItems } addProductToCart={ this.addProductToCart } />
+          <Routes addProductToCart={ this.addProductToCart } />
         </Switch>
       </BrowserRouter>
     );
