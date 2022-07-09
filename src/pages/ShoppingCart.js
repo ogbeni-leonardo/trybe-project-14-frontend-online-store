@@ -1,9 +1,45 @@
-import React from 'react';
-import { arrayOf, shape } from 'prop-types';
+import React, { Component } from 'react';
+import { func } from 'prop-types';
 
-class ShoppingCart extends React.Component {
+class ShoppingCart extends Component {
+  constructor() {
+    super();
+
+    this.getAllSavedCartItems = this.getAllSavedCartItems.bind(this);
+    this.decreaseQuantity = this.decreaseQuantity.bind(this);
+    this.increaseQuantity = this.increaseQuantity.bind(this);
+
+    this.state = {
+      cartItems: [],
+    };
+  }
+
+  componentDidMount() {
+    this.getAllSavedCartItems();
+  }
+
+  getAllSavedCartItems() {
+    const allSavedCartItems = JSON.parse(localStorage.getItem('cartItems'));
+    this.setState({ cartItems: allSavedCartItems });
+  }
+
+  decreaseQuantity(product, quantity) {
+    const { addProductToCart } = this.props;
+
+    if (quantity > 1) {
+      addProductToCart(product, quantity - 1);
+      this.getAllSavedCartItems();
+    }
+  }
+
+  increaseQuantity(product, quantity) {
+    const { addProductToCart } = this.props;
+    addProductToCart(product, quantity + 1);
+    this.getAllSavedCartItems();
+  }
+
   render() {
-    const { cartItems } = this.props;
+    const { cartItems } = this.state;
 
     return (
       <div>
@@ -11,11 +47,26 @@ class ShoppingCart extends React.Component {
           ? (
             <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
           )
-          : cartItems.map(({ id, title, price, quantity }) => (
-            <div key={ id }>
-              <p data-testid="shopping-cart-product-name">{ title }</p>
-              <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
-              <p>{ price }</p>
+          : cartItems.map((product) => (
+            <div key={ product.id }>
+              <p data-testid="shopping-cart-product-name">{ product.title }</p>
+              <p data-testid="shopping-cart-product-quantity">{ product.quantity }</p>
+              <p>{ product.price }</p>
+              <button
+                type="button"
+                data-testid="product-decrease-quantity"
+                onClick={ () => this.decreaseQuantity(product, product.quantity) }
+              >
+                -
+              </button>
+              <span>{ product.quantity }</span>
+              <button
+                type="button"
+                data-testid="product-increase-quantity"
+                onClick={ () => this.increaseQuantity(product, product.quantity) }
+              >
+                +
+              </button>
             </div>
           ))}
       </div>
@@ -24,7 +75,7 @@ class ShoppingCart extends React.Component {
 }
 
 ShoppingCart.propTypes = {
-  cartItems: arrayOf(shape({})).isRequired,
+  addProductToCart: func.isRequired,
 };
 
 export default ShoppingCart;

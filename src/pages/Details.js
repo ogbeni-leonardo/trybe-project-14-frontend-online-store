@@ -46,9 +46,7 @@ class Details extends React.Component {
 }
 
 Details.propTypes = {
-  match: shape({
-    params: shape({ id: string }),
-  }).isRequired,
+  match: shape({ params: shape({ id: string }) }).isRequired,
   addProductToCart: func.isRequired,
 };
 
