@@ -8,7 +8,7 @@ import './Header.css';
 
 class Header extends Component {
   render() {
-    const { cartCounter } = this.props;
+    const { cartSize } = this.props;
 
     return (
       <header className="header">
@@ -16,14 +16,14 @@ class Header extends Component {
           thyl
           <span>Store</span>
         </Link>
-        <ShoppingCartButton cartCounter={ cartCounter } />
+        <ShoppingCartButton cartSize={ cartSize } />
       </header>
     );
   }
 }
 
 Header.propTypes = {
-  cartCounter: number.isRequired,
+  cartSize: number.isRequired,
 };
 
 export default Header;

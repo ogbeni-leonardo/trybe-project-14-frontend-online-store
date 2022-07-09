@@ -6,7 +6,7 @@ import './ShoppingCartButton.css';
 
 class ShoppingCartButton extends Component {
   render() {
-    const { cartCounter } = this.props;
+    const { cartSize } = this.props;
 
     return (
       <Link
@@ -15,14 +15,14 @@ class ShoppingCartButton extends Component {
         to="/shopping-cart"
       >
         <i className="fa-solid fa-cart-shopping" />
-        <span>{ cartCounter }</span>
+        <span data-testid="shopping-cart-size">{ cartSize }</span>
       </Link>
     );
   }
 }
 
 ShoppingCartButton.propTypes = {
-  cartCounter: number.isRequired,
+  cartSize: number.isRequired,
 };
 
 export default ShoppingCartButton;

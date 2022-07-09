@@ -8,3 +8,5 @@ npm test src/__tests__/requirement07
 npm test src/__tests__/requirement08
 npm test src/__tests__/requirement09
 npm test src/__tests__/requirement10
+npm test src/__tests__/requirement11
+npm test src/__tests__/requirement13

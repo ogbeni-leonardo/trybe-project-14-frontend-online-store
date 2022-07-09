@@ -15,27 +15,34 @@ class Home extends React.Component {
   constructor() {
     super();
 
-    this.cartCounterUpdate = this.cartCounterUpdate.bind(this);
+    this.cartSizeUpdate = this.cartSizeUpdate.bind(this);
     this.fetchProducts = this.fetchProducts.bind(this);
 
     this.state = {
-      cartCounter: 0,
+      cartSize: this.getQuantityOfProductsOfCart(),
       fetchSuccess: true,
       loading: false,
       productsList: [],
     };
   }
 
-  componentDidMount() { this.cartCounterUpdate(); }
+  componentDidMount() { this.cartSizeUpdate(); }
 
-  /* O objetivo desta função é atualizar a contagem de itens no carrinho. Ela será passada
-  para o componente Header que então passará para o componente ShoppingCartButton. */
-  cartCounterUpdate() {
+  getQuantityOfProductsOfCart() {
     const allSavedCartItems = JSON.parse(localStorage.getItem('cartItems'));
-    /* Se o localStorage ainda não tiver inicializado apenas ignore, caso o contrário mude o estado. */
+    /* Caso o localStorage já tenha sido inicializado prossiga... */
     if (allSavedCartItems) {
-      this.setState({ cartCounter: allSavedCartItems.length });
+      /* Retorne a quantidade total de itens no carrinho. */
+      return allSavedCartItems.reduce((acc, curr) => acc + curr.quantity, 0);
     }
+    /* Caso não tenha sido inicializado retorne 0.  */
+    return 0;
+  }
+
+  /* O objetivo desta função é atualizar a contagem de itens no carrinho. */
+  cartSizeUpdate() {
+    const cartSize = this.getQuantityOfProductsOfCart();
+    this.setState({ cartSize });
   }
 
   /* Esta função vai fazer a requisição dos produtos à API. Enquanto realiza esta função
@@ -56,12 +63,12 @@ class Home extends React.Component {
   }
 
   render() {
-    const { productsList, fetchSuccess, loading, cartCounter } = this.state;
+    const { productsList, fetchSuccess, loading, cartSize } = this.state;
     const { addProductToCart } = this.props;
 
     return (
       <div>
-        <Header cartCounter={ cartCounter } />
+        <Header cartSize={ cartSize } />
 
         <div className="homePage">
           <CategorySideBar fetchProducts={ this.fetchProducts } />
@@ -97,7 +104,7 @@ class Home extends React.Component {
               { productsList.map((product) => (
                 <ProductCard
                   addProductToCart={ addProductToCart }
-                  cartCounterUpdate={ this.cartCounterUpdate }
+                  cartSizeUpdate={ this.cartSizeUpdate }
                   key={ product.id }
                   product={ product }
                 />

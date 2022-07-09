@@ -6,7 +6,7 @@ import './ProductCard.css';
 
 class ProductCard extends Component {
   render() {
-    const { product, addProductToCart, cartCounterUpdate } = this.props;
+    const { product, addProductToCart, cartSizeUpdate } = this.props;
     const { id, title, price, thumbnail } = product;
 
     return (
@@ -33,7 +33,7 @@ class ProductCard extends Component {
             data-testid="product-add-to-cart"
             onClick={ () => {
               addProductToCart(product);
-              cartCounterUpdate();
+              cartSizeUpdate();
             } }
             type="button"
           >
@@ -47,7 +47,7 @@ class ProductCard extends Component {
 
 ProductCard.propTypes = {
   addProductToCart: func.isRequired,
-  cartCounterUpdate: func.isRequired,
+  cartSizeUpdate: func.isRequired,
   product: shape({ id: string }).isRequired,
 };
 

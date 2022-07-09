@@ -29,28 +29,24 @@ class App extends Component {
     productItem.quantity = quantity || this.productQuantity(product);
 
     // Pegue dos items salvos todos, exceto o item atual
-    const allCartItemsWithoutThisProduct = allSavedCartItems
-      .filter(({ id }) => id !== product.id);
+    const allExceptThisOne = allSavedCartItems.filter(({ id }) => id !== product.id);
 
     // Adicione ao localStorage todos os itens anteriores, exceto o atual e, logo em seguida, o atual
-    localStorage.setItem('cartItems', JSON.stringify([
-      ...allCartItemsWithoutThisProduct,
-      productItem,
-    ]));
+    localStorage.setItem(
+      'cartItems',
+      JSON.stringify([...allExceptThisOne, productItem]),
+    );
   }
 
   productQuantity(product) {
     const allSavedCartItems = JSON.parse(localStorage.getItem('cartItems'));
 
-    // Verificando quando produtos do mesmo tipo estão no carrinho
-    const quantityOfTheSameProduct = allSavedCartItems
-      .filter(({ id }) => id === product.id);
+    // Filtre pelo produto atual verificando se ele já existe
+    const alreadyExists = allSavedCartItems.filter(({ id }) => id === product.id);
 
-    const { length } = quantityOfTheSameProduct;
-
-    /* Se não houver itens idênticos ele será o primeiro, então retorne 1. Caso haja, retorne o tamanho total + 1, afinal
-    o item que será adicionado deve ser somado aos que já existem dele mesmo. */
-    return length === 0 ? 1 : length + 1;
+    /* Retorne a quantidade atual deste produto. */
+    return alreadyExists.length > 0
+      ? alreadyExists[0].quantity + 1 : 1;
   }
 
   render() {
