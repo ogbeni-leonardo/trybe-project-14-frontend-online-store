@@ -3,6 +3,8 @@ import { func } from 'prop-types';
 
 import { getCategories } from '../services/api';
 
+import './CategorySideBar.css';
+
 class CategorySideBar extends Component {
   constructor() {
     super();
@@ -23,23 +25,23 @@ class CategorySideBar extends Component {
     const { fetchProducts } = this.props;
 
     return (
-      <aside>
-        <ul>
-          { categories.map(({ id, name }) => (
-            <li key={ id }>
-              <label htmlFor={ id } data-testid="category">
-                <input
-                  type="radio"
-                  id={ id }
-                  name="category"
-                  value={ id }
-                  onChange={ ({ target: { value } }) => fetchProducts(value, '') }
-                />
-                { name }
-              </label>
-            </li>
-          )) }
-        </ul>
+      <aside className="categoriesSideBar">
+        <nav>
+          <ul className="categoriesList">
+            { categories.map(({ id, name }) => (
+              <li key={ id }>
+                <button
+                  className="categoryButton"
+                  data-testid="category"
+                  onClick={ () => fetchProducts(id, '') }
+                  type="button"
+                >
+                  { name }
+                </button>
+              </li>
+            )) }
+          </ul>
+        </nav>
       </aside>
     );
   }

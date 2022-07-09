@@ -25,8 +25,8 @@ export async function getProductsById(id) {
   try {
     const response = await fetch(URL_API);
     const product = await response.json();
-    return [product];
+    return product;
   } catch {
-    return [];
+    return {};
   }
 }

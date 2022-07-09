@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { func } from 'prop-types';
 
+import './SearchInput.css';
+
 class SearchInput extends Component {
   constructor() {
     super();
@@ -26,21 +28,26 @@ class SearchInput extends Component {
     const { searchInput } = this.state;
 
     return (
-      <form>
-        <input
-          type="text"
-          data-testid="query-input"
-          value={ searchInput }
-          onChange={ this.onInputChange }
-        />
+      <form className="searchForm">
+        <div className="searchInputContainer">
+          <input
+            className="searchInput"
+            data-testid="query-input"
+            onChange={ this.onInputChange }
+            placeholder="Digite o nome do produto..."
+            type="text"
+            value={ searchInput }
+          />
 
-        <button
-          type="submit"
-          data-testid="query-button"
-          onClick={ this.onSubmit }
-        >
-          Pesquisar
-        </button>
+          <button
+            className="searchButton"
+            data-testid="query-button"
+            onClick={ this.onSubmit }
+            type="submit"
+          >
+            Pesquisar
+          </button>
+        </div>
       </form>
     );
   }

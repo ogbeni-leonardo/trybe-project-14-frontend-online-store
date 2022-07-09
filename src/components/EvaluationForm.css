@@ -1,0 +1,57 @@
+.evaluationForm {
+  align-items: flex-start;
+  background-color: var(--tertiary);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px;
+  row-gap: 10px;
+}
+
+.evaluationFormEmailContainer {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.evaluationFormEmail {
+  background-color: var(--secondary);
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0 0 0 / 5%);
+  height: 35px;
+  margin-right: 20px;
+  padding-inline: 10px;
+  width: 340px;
+}
+
+.evaluationFormStar {
+  background-color: var(--tertiary);
+}
+
+.evaluationFormStar.--active {
+  color: rgb(255 0 0);
+}
+
+.evaluationFormDescription {
+  background-color: var(--secondary);
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0 0 0 / 5%);
+  font-family: inherit;
+  height: 150px;
+  padding: 10px;
+  resize: none;
+  width: 340px;
+}
+
+.evaluationFormSubmit {
+  background-color: var(--theme);
+  border-radius: 5px;
+  color: var(--primary);
+  padding: 10px 30px;
+}
+
+.evaluationFormSubmit:disabled {
+  background-color: var(--secondary);
+  color: var(--default-font-color);
+  cursor: not-allowed;
+}

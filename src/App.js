@@ -11,6 +11,9 @@ class App extends Component {
     this.productQuantity = this.productQuantity.bind(this);
   }
 
+  /* Quando o nosso App for renderizado ele irá verificar se o localStorage
+  foi inicializado. Caso não tenha sido ele criará uma nova propriedade chamada cartItems
+  que conterá todos os itens salvos no carrinho. */
   componentDidMount() {
     if (!localStorage.getItem('cartItems')) {
       localStorage.setItem('cartItems', JSON.stringify([]));
@@ -25,26 +28,25 @@ class App extends Component {
     // Se a quantidade de itens for informada adicione, caso contrário, verifique se tal item já existe
     productItem.quantity = quantity || this.productQuantity(product);
 
-    // Pegue dos items salvos todos exceto o item atual
-    const allCartItemsWithoutThisProduct = allSavedCartItems
-      .filter(({ id }) => id !== product.id);
+    // Pegue dos items salvos todos, exceto o item atual
+    const allExceptThisOne = allSavedCartItems.filter(({ id }) => id !== product.id);
 
-    // Adicione ao localStorage todos os itens anteriores exceto o atual e então o atual
-    localStorage.setItem('cartItems', JSON.stringify([
-      ...allCartItemsWithoutThisProduct,
-      productItem,
-    ]));
+    // Adicione ao localStorage todos os itens anteriores, exceto o atual e, logo em seguida, o atual
+    localStorage.setItem(
+      'cartItems',
+      JSON.stringify([...allExceptThisOne, productItem]),
+    );
   }
 
   productQuantity(product) {
     const allSavedCartItems = JSON.parse(localStorage.getItem('cartItems'));
 
-    // Verificando quando produtos do mesmo tipo estão no carrinho
-    const quantityOfTheSameProduct = allSavedCartItems
-      .filter(({ id }) => id === product.id);
-    const { length } = quantityOfTheSameProduct;
+    // Filtre pelo produto atual verificando se ele já existe
+    const alreadyExists = allSavedCartItems.filter(({ id }) => id === product.id);
 
-    return length === 0 ? 1 : length + 1;
+    /* Retorne a quantidade atual deste produto. */
+    return alreadyExists.length > 0
+      ? alreadyExists[0].quantity + 1 : 1;
   }
 
   render() {
