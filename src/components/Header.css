@@ -1,0 +1,22 @@
+.header {
+  align-items: center;
+  background-color: var(--default-font-color);
+  column-gap: 30px;
+  display: flex;
+  height: 80px;
+  justify-content: space-between;
+  padding-inline: 30px;
+}
+
+.storeName {
+  color: var(--primary);
+  font-size: 1.8rem;
+  font-weight: 600;
+  transform: translateY(-1px);
+}
+
+.storeName span {
+  color: var(--theme);
+  font-size: 2rem;
+  font-weight: 600;
+}

@@ -1,0 +1,26 @@
+.categoriesSideBar {
+  background-color: var(--primary);
+  height: calc(100vh - 80px);
+  min-height: 500px;
+  overflow: auto;
+  padding: 15px 8px;
+  width: 301px;
+}
+
+.categoriesList {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+}
+
+.categoryButton {
+  background-color: var(--secondary);
+  padding: 12px 8px;
+  text-align: left;
+  width: 220px;
+}
+
+.categoryButton:hover {
+  background-color: var(--theme);
+  color: var(--primary);
+}

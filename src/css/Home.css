@@ -1,0 +1,33 @@
+.homePage {
+  display: flex;
+}
+
+.homePageContent {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.homePageLoadingContainer {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+}
+
+.homePageLoading {
+  width: 100px;
+}
+
+.homePageMessage {
+  padding: 20px 10px;
+}
+
+.searchedProductsList {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px;
+}
