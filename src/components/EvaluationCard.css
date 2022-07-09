@@ -1,0 +1,37 @@
+.evaluationCard {
+  background-color: var(--tertiary);
+  border-top: 1px solid var(--primary);
+  padding: 30px;
+}
+
+.evaluationCardEmailContainer {
+  align-items: center;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.evaluationCardEmail {
+  font-weight: 600;
+  margin-right: 20px;
+}
+
+.evaluationCardStar {
+  background-color: var(--tertiary);
+}
+
+.evaluationCardStar.--active {
+  color: red;
+}
+
+.evaluationCardDescription {
+  font-style: italic;
+  padding: 10px;
+}
+
+.evaluationCardDescription:before {
+  content: '"';
+}
+
+.evaluationCardDescription:after {
+  content: '"';
+}

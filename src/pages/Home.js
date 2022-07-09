@@ -1,7 +1,7 @@
 import React from 'react';
-import { func } from 'prop-types';
 
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import { getQuantityOfProductsOfCart } from '../js/localStorageFunctions';
 
 import Header from '../components/Header';
 import CategorySideBar from '../components/CategorySideBar';
@@ -19,29 +19,15 @@ class Home extends React.Component {
     this.fetchProducts = this.fetchProducts.bind(this);
 
     this.state = {
-      cartSize: this.getQuantityOfProductsOfCart(),
-      fetchSuccess: true,
       loading: false,
+      fetchSuccess: true,
       productsList: [],
+      cartSize: getQuantityOfProductsOfCart(),
     };
   }
 
-  componentDidMount() { this.cartSizeUpdate(); }
-
-  getQuantityOfProductsOfCart() {
-    const allSavedCartItems = JSON.parse(localStorage.getItem('cartItems'));
-    /* Caso o localStorage já tenha sido inicializado prossiga... */
-    if (allSavedCartItems) {
-      /* Retorne a quantidade total de itens no carrinho. */
-      return allSavedCartItems.reduce((acc, curr) => acc + curr.quantity, 0);
-    }
-    /* Caso não tenha sido inicializado retorne 0.  */
-    return 0;
-  }
-
-  /* O objetivo desta função é atualizar a contagem de itens no carrinho. */
   cartSizeUpdate() {
-    const cartSize = this.getQuantityOfProductsOfCart();
+    const cartSize = getQuantityOfProductsOfCart();
     this.setState({ cartSize });
   }
 
@@ -64,7 +50,6 @@ class Home extends React.Component {
 
   render() {
     const { productsList, fetchSuccess, loading, cartSize } = this.state;
-    const { addProductToCart } = this.props;
 
     return (
       <div>
@@ -103,7 +88,6 @@ class Home extends React.Component {
             <ul className="searchedProductsList">
               { productsList.map((product) => (
                 <ProductCard
-                  addProductToCart={ addProductToCart }
                   cartSizeUpdate={ this.cartSizeUpdate }
                   key={ product.id }
                   product={ product }
@@ -116,9 +100,5 @@ class Home extends React.Component {
     );
   }
 }
-
-Home.propTypes = {
-  addProductToCart: func.isRequired,
-};
 
 export default Home;

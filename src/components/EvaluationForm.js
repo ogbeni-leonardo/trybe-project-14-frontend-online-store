@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { string } from 'prop-types';
 
-import './EvaluationForm.css';
 import EvaluationCard from './EvaluationCard';
+import './EvaluationForm.css';
 
 class EvaluationForm extends Component {
   constructor() {
     super();
 
-    this.getReviewsToThisProduct = this.getReviewsToThisProduct.bind(this);
+    this.getEvaluationToThisProduct = this.getEvaluationToThisProduct.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.onStarClick = this.onStarClick.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -22,12 +22,12 @@ class EvaluationForm extends Component {
   componentDidMount() {
     /* Ao renderizar este componente ele verifica se o localStorage foi iniciado com a chave válida.
     caso não tenha sido ele irá criá-la. */
-    if (!localStorage.getItem('thylStoreReviews')) {
-      localStorage.setItem('thylStoreReviews', JSON.stringify([]));
+    if (!localStorage.getItem('thylEvaluations')) {
+      localStorage.setItem('thylEvaluations', JSON.stringify([]));
     }
 
     /* Atualize a lista de avaliações. */
-    this.getReviewsToThisProduct();
+    this.getEvaluationToThisProduct();
   }
 
   onInputChange({ target: { name, value } }) {
@@ -55,33 +55,33 @@ class EvaluationForm extends Component {
     event.preventDefault();
 
     /* Pegue todo o conteúdo de avaliação já armazenado no localStorage */
-    const allReviews = JSON.parse(localStorage.getItem('thylStoreReviews'));
+    const allEvaluations = JSON.parse(localStorage.getItem('thylEvaluations'));
 
     const { productID } = this.props;
 
     /* Adicione o produto e sua avaliação. */
     const { startsEvaluationButton, emailInput, descriptionInput } = this.state;
 
-    allReviews.push({
+    allEvaluations.push({
       id: productID,
       email: emailInput.trim(),
       stars: startsEvaluationButton,
       description: descriptionInput.trim(),
     });
 
-    localStorage.setItem('thylStoreReviews', JSON.stringify(allReviews));
+    localStorage.setItem('thylEvaluations', JSON.stringify(allEvaluations));
 
-    /* Atualize a lista de avaliações. */
-    this.setState({ ...this.initialState() }, () => this.getReviewsToThisProduct());
+    /* Atualize a lista de avaliações logo após limpar as informações do formulário. */
+    this.setState({ ...this.initialState() }, () => this.getEvaluationToThisProduct());
   }
 
-  getReviewsToThisProduct() {
-    const allReviews = JSON.parse(localStorage.getItem('thylStoreReviews'));
+  getEvaluationToThisProduct() {
+    const allEvaluations = JSON.parse(localStorage.getItem('thylEvaluations'));
 
     /* Filter as avaliações para que somente as desse produto sejam retornadas */
     const { productID } = this.props;
-    const reviewsToThisProduct = allReviews.filter(({ id }) => id === productID);
-    this.setState({ reviews: reviewsToThisProduct });
+    const evaluationsToThisOne = allEvaluations.filter(({ id }) => id === productID);
+    this.setState({ evaluations: evaluationsToThisOne });
   }
 
   /* Esta função irá retornar o estado inicial deste componente. */
@@ -97,7 +97,7 @@ class EvaluationForm extends Component {
       emailInput: '',
       descriptionInput: '',
       submitButtonIsDisabled: true,
-      reviews: [],
+      evaluations: [],
     });
   }
 
@@ -117,7 +117,7 @@ class EvaluationForm extends Component {
       emailInput,
       descriptionInput,
       submitButtonIsDisabled,
-      reviews,
+      evaluations,
     } = this.state;
 
     return (
@@ -167,8 +167,8 @@ class EvaluationForm extends Component {
           </button>
         </form>
         <div>
-          { reviews.length > 0 && reviews.map((review, index) => (
-            <EvaluationCard key={ index } review={ review } />
+          { evaluations.length > 0 && evaluations.map((review, index) => (
+            <EvaluationCard key={ index } evaluation={ review } />
           )) }
         </div>
       </div>
