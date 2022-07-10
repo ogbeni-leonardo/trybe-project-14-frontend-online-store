@@ -1,0 +1,47 @@
+.productDetailsContainer {
+  align-items: center;
+  column-gap: 40px;
+  display: flex;
+  justify-content: flex-start;
+  padding: 40px 30px;
+}
+
+.productDetails {
+  flex-grow: 1;
+}
+
+.productDetails h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.productDetails ul {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  font-size: 0.9rem;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.productDetails li {
+  padding: 8px;
+}
+
+.productDetails li:nth-child( odd ) {
+  background-color: var(--tertiary);
+}
+
+.productDetails li:nth-child( even ) {
+  background-color: var(--secondary);
+}
+
+.productDetails li span {
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.evaluationTitle {
+  padding-bottom: 30px;
+  padding-left: 30px;
+}

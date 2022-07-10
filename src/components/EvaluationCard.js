@@ -1,29 +1,36 @@
 import React, { Component } from 'react';
 import { shape, string, number, bool, arrayOf } from 'prop-types';
 
+import './EvaluationCard.css';
+
 class EvaluationCard extends Component {
   render() {
-    const { review: { email, stars, description } } = this.props;
+    const { evaluation: { email, stars, description } } = this.props;
 
     return (
-      <div>
-        <p>{ email }</p>
+      <div className="evaluationCard">
+        <div className="evaluationCardEmailContainer">
+          <p className="evaluationCardEmail">{ email }</p>
 
-        { stars.map((star) => (
-          <i
-            className={ `fa-solid fa-star ${star.active ? '--active' : ''}` }
-            key={ star.id }
-          />
-        )) }
+          { stars.map((star) => (
+            <button
+              className={ `evaluationCardStar ${star.active ? '--active' : ''}` }
+              key={ star.id }
+              type="button"
+            >
+              <i className="fa-solid fa-star" />
+            </button>
+          )) }
+        </div>
 
-        <p>{ description }</p>
+        <p className="evaluationCardDescription">{ description }</p>
       </div>
     );
   }
 }
 
 EvaluationCard.propTypes = {
-  review: shape({
+  evaluation: shape({
     id: string,
     email: string,
     stars: arrayOf(shape({ id: number, active: bool })),

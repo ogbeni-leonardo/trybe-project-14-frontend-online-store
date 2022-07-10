@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-import { shape, string, func } from 'prop-types';
+import { shape, string } from 'prop-types';
+
 import { getProductsById } from '../services/api';
+import {
+  getQuantityOfProductsOfCart,
+  addProductToCart,
+} from '../js/localStorageFunctions';
 
 import Header from '../components/Header';
 import EvaluationForm from '../components/EvaluationForm';
+import '../css/Details.css';
 
 class Details extends Component {
   constructor() {
@@ -12,7 +18,7 @@ class Details extends Component {
     this.cartSizeUpdate = this.cartSizeUpdate.bind(this);
 
     this.state = {
-      cartSize: this.getQuantityOfProductsOfCart(),
+      cartSize: getQuantityOfProductsOfCart(),
       product: {},
     };
   }
@@ -24,50 +30,78 @@ class Details extends Component {
     this.setState({ product });
   }
 
-  getQuantityOfProductsOfCart() {
-    const allSavedCartItems = JSON.parse(localStorage.getItem('cartItems'));
-    /* Caso o localStorage já tenha sido inicializado prossiga... */
-    if (allSavedCartItems) {
-      /* Retorne a quantidade total de itens no carrinho. */
-      return allSavedCartItems.reduce((acc, curr) => acc + curr.quantity, 0);
-    }
-    /* Caso não tenha sido inicializado retorne 0.  */
-    return 0;
-  }
-
-  /* O objetivo desta função é atualizar a contagem de itens no carrinho. */
   cartSizeUpdate() {
-    const cartSize = this.getQuantityOfProductsOfCart();
+    const cartSize = getQuantityOfProductsOfCart();
     this.setState({ cartSize });
   }
 
   render() {
     const { cartSize, product } = this.state;
-    const { addProductToCart, match: { params: { id } } } = this.props;
 
     return (
-      <div>
+      <div className="detailsPage">
         <Header cartSize={ cartSize } />
 
-        { [product].map(({ title, thumbnail, price }, index) => (
-          <div key={ index }>
-            <h2 data-testid="product-detail-name">{ title }</h2>
-            <img src={ thumbnail } alt={ title } />
-            <p>{ price }</p>
-            <button
-              data-testid="product-detail-add-to-cart"
-              type="button"
-              onClick={ () => {
-                addProductToCart(product);
-                this.cartSizeUpdate();
-              } }
-            >
-              Adicionar ao carrinho
-            </button>
-          </div>
-        )) }
+        {/* A partir daqui tudo sí será renderizado se houver um produto. */}
+        { product.id && (
+          <>
+            <section className="productDetailsContainer">
+              {/* Este elemento tem as mesmas classes do componente ProductCard.
+              O fato de não reutilizarmos é que sua propriedade de teste é diferente,
+              o que causa erros. */}
+              <div className="productCard">
+                <div
+                  className="productCardImageContainer"
+                  style={ { backgroundImage: `url(${product.thumbnail})` } }
+                >
+                  <img
+                    alt={ product.title }
+                    className="productCardImage"
+                    src={ product.thumbnail }
+                  />
+                  <p
+                    className="productCardName"
+                    data-testid="product-detail-name"
+                  >
+                    { product.title }
+                  </p>
+                </div>
 
-        <EvaluationForm productID={ id } />
+                <p className="productCardPrice">{ product.price }</p>
+
+                <div className="productCardAddButtonContainer">
+                  <button
+                    className="productCardAddButton"
+                    data-testid="product-detail-add-to-cart"
+                    onClick={ () => {
+                      addProductToCart(product);
+                      this.cartSizeUpdate();
+                    } }
+                    type="button"
+                  >
+                    Adicionar ao carrinho
+                  </button>
+                </div>
+              </div>
+
+              <div className="productDetails">
+                <h2>Detalhes:</h2>
+                <ul>
+                  { product.attributes.map((attribute) => (
+                    <li key={ attribute.id }>
+                      <span>{ `${attribute.name}:` }</span>
+                      { attribute.value_name || 'Não informado' }
+                    </li>
+                  )) }
+                </ul>
+              </div>
+            </section>
+
+            <h2 className="evaluationTitle">Avaliações</h2>
+
+            <EvaluationForm productID={ product.id } />
+          </>
+        ) }
       </div>
     );
   }
@@ -75,7 +109,6 @@ class Details extends Component {
 
 Details.propTypes = {
   match: shape({ params: shape({ id: string }) }).isRequired,
-  addProductToCart: func.isRequired,
 };
 
 export default Details;

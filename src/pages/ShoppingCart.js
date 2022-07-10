@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { func } from 'prop-types';
+
+import { getAllSavedItemsOnCart, addProductToCart } from '../js/localStorageFunctions';
 
 class ShoppingCart extends Component {
   constructor() {
     super();
 
-    this.getAllSavedCartItems = this.getAllSavedCartItems.bind(this);
+    this.updateCartItems = this.updateCartItems.bind(this);
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
     this.increaseQuantity = this.increaseQuantity.bind(this);
 
@@ -15,27 +16,24 @@ class ShoppingCart extends Component {
   }
 
   componentDidMount() {
-    this.getAllSavedCartItems();
+    this.updateCartItems();
   }
 
-  getAllSavedCartItems() {
-    const allSavedCartItems = JSON.parse(localStorage.getItem('cartItems'));
+  updateCartItems() {
+    const allSavedCartItems = getAllSavedItemsOnCart();
     this.setState({ cartItems: allSavedCartItems });
   }
 
   decreaseQuantity(product, quantity) {
-    const { addProductToCart } = this.props;
-
     if (quantity > 1) {
       addProductToCart(product, quantity - 1);
-      this.getAllSavedCartItems();
+      this.updateCartItems();
     }
   }
 
   increaseQuantity(product, quantity) {
-    const { addProductToCart } = this.props;
     addProductToCart(product, quantity + 1);
-    this.getAllSavedCartItems();
+    this.updateCartItems();
   }
 
   render() {
@@ -73,9 +71,5 @@ class ShoppingCart extends Component {
     );
   }
 }
-
-ShoppingCart.propTypes = {
-  addProductToCart: func.isRequired,
-};
 
 export default ShoppingCart;
