@@ -58,11 +58,29 @@
   white-space: normal;
 }
 
-.productCardPrice {
+.productPriceAndShipping {
+  align-items: center;
   background-color: var(--tertiary);
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
+  padding-inline: 6px;
+}
+
+.productShipping {
+  background-color: var(--theme);
+  border-radius: 20px;
+  color: var(--primary);
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  right: 8px;
+  top: 8px;
+}
+
+.productCardPrice {
   color: rgb(0 100 0);
-  padding-block: 4px;
-  padding-right: 10px;
+  flex-grow: 1;
+  font-size: 0.9rem;
   text-align: right;
 }
 

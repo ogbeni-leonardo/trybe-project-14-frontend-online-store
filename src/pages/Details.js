@@ -37,6 +37,7 @@ class Details extends Component {
 
   render() {
     const { cartSize, product } = this.state;
+    const { shipping } = product;
 
     return (
       <div className="detailsPage">
@@ -67,7 +68,18 @@ class Details extends Component {
                   </p>
                 </div>
 
-                <p className="productCardPrice">{ product.price }</p>
+                <div className="productPriceAndShipping">
+                  { shipping.free_shipping && (
+                    <p
+                      className="productShipping"
+                      data-testid="free-shipping"
+                    >
+                      Frete grátis
+                    </p>
+                  ) }
+
+                  <p className="productCardPrice">{ product.price }</p>
+                </div>
 
                 <div className="productCardAddButtonContainer">
                   <button

@@ -9,7 +9,7 @@ import './ProductCard.css';
 class ProductCard extends Component {
   render() {
     const { product, cartSizeUpdate } = this.props;
-    const { id, title, price, thumbnail } = product;
+    const { id, title, price, thumbnail, shipping } = product;
 
     return (
       <li data-testid="product" className="productCard">
@@ -26,7 +26,13 @@ class ProductCard extends Component {
             <p className="productCardName">{ title }</p>
           </div>
 
-          <p className="productCardPrice">{ price }</p>
+          <div className="productPriceAndShipping">
+            { shipping.free_shipping && (
+              <p className="productShipping" data-testid="free-shipping">Frete grátis</p>
+            ) }
+
+            <p className="productCardPrice">{ price }</p>
+          </div>
         </Link>
 
         <div className="productCardAddButtonContainer">
