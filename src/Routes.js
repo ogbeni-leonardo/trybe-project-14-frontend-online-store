@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import Home from './pages/Home';
 import ShoppingCart from './pages/ShoppingCart';
 import Details from './pages/Details';
+import Checkout from './pages/Checkout';
 
 class Routes extends Component {
   render() {
@@ -15,6 +16,7 @@ class Routes extends Component {
           render={ (props) => <Details { ...props } /> }
         />
         <Route exact path="/shopping-cart" component={ ShoppingCart } />
+        <Route exact path="/checkout" component={ Checkout } />
       </>
     );
   }
