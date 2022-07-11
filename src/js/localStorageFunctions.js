@@ -7,18 +7,27 @@ const productQuantity = (product) => {
 };
 
 export function addProductToCart(product, quantity) {
-  // Esta função retorna do localStorage todos os items salvos no carrinho
+  // Esta função retorna do localStorage todos os items salvos no carrinho.
   const allSavedCartItems = JSON.parse(localStorage.getItem('thylCartItems'));
+  // Primeiro, verifique se este produto já existe no carrinho
+  const exists = allSavedCartItems.some((item) => item.id === product.id);
+  // Caso o item já exista, percorra o array dos items e altere somente ele
+  if (exists) {
+    const updateCartItems = allSavedCartItems.map((item) => {
+      const productItem = item;
+      if (productItem.id === product.id) {
+        productItem.quantity = quantity || productQuantity(product);
+      }
+      return productItem;
+    });
+    return localStorage.setItem('thylCartItems', JSON.stringify(updateCartItems));
+  }
+  // Caso ele não exista, defina a quantidade dele para 1
   const productItem = product;
-  // Se a quantidade de itens for informada adicione, caso contrário, verifique se tal item já existe
-  productItem.quantity = quantity || productQuantity(product);
-  // Pegue dos items salvos todos, exceto o item atual
-  const allExceptThisOne = allSavedCartItems.filter(({ id }) => id !== product.id);
-  // Adicione ao localStorage todos os itens anteriores, exceto o atual e, logo em seguida, o atual
-  localStorage.setItem(
-    'thylCartItems',
-    JSON.stringify([...allExceptThisOne, productItem]),
-  );
+  productItem.quantity = 1;
+
+  allSavedCartItems.push(productItem);
+  localStorage.setItem('thylCartItems', JSON.stringify(allSavedCartItems));
 }
 
 export function getQuantityOfProductsOfCart() {
