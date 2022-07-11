@@ -33,8 +33,10 @@ class ShoppingCart extends Component {
   }
 
   increaseQuantity(product, quantity) {
-    addProductToCart(product, quantity + 1);
-    this.updateCartItems();
+    if (quantity < product.available_quantity) {
+      addProductToCart(product, quantity + 1);
+      this.updateCartItems();
+    }
   }
 
   render() {
