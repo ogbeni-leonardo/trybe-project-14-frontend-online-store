@@ -68,11 +68,12 @@ class ShoppingCart extends Component {
               </button>
             </div>
           ))}
-            <Link to="/checkout"
-              data-testid="checkout-products"
-            >
-              Checkout
-            </Link>
+        <Link
+          to="/checkout"
+          data-testid="checkout-products"
+        >
+          Checkout
+        </Link>
       </div>
     );
   }
