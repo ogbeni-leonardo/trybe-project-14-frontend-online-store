@@ -1,0 +1,32 @@
+.shoppingCartPage {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+
+.shoppingCartPageTitle {
+  margin-bottom: 50px;
+  text-align: left;
+}
+
+.shoppingCartPageItems {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.shoppingCartPageCheckout {
+  background-color: var(--theme);
+  border-radius: 5px;
+  color: var(--primary);
+  font-size: 0.9rem;
+  margin-top: 40px;
+  opacity: 0.8;
+  padding: 10px 20px;
+  text-transform: uppercase;
+}
+
+.shoppingCartPageCheckout:hover {
+  opacity: 1;
+}

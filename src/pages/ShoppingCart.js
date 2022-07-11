@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getAllSavedItemsOnCart, addProductToCart } from '../js/localStorageFunctions';
+import { getAllSavedItemsOnCart } from '../js/localStorageFunctions';
+
+import CartItem from '../components/CartItem';
+import '../css/ShoppingCart.css';
 
 class ShoppingCart extends Component {
   constructor() {
     super();
 
     this.updateCartItems = this.updateCartItems.bind(this);
-    this.decreaseQuantity = this.decreaseQuantity.bind(this);
-    this.increaseQuantity = this.increaseQuantity.bind(this);
 
     this.state = {
       cartItems: [],
@@ -25,56 +26,35 @@ class ShoppingCart extends Component {
     this.setState({ cartItems: allSavedCartItems });
   }
 
-  decreaseQuantity(product, quantity) {
-    if (quantity > 1) {
-      addProductToCart(product, quantity - 1);
-      this.updateCartItems();
-    }
-  }
-
-  increaseQuantity(product, quantity) {
-    if (quantity < product.available_quantity) {
-      addProductToCart(product, quantity + 1);
-      this.updateCartItems();
-    }
-  }
-
   render() {
     const { cartItems } = this.state;
 
     return (
-      <div>
+      <div className="shoppingCartPage">
+        <h1 className="shoppingCartPageTitle">Carrinho de compras</h1>
+
         { cartItems.length === 0
           ? (
             <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
           )
-          : cartItems.map((product) => (
-            <div key={ product.id }>
-              <p data-testid="shopping-cart-product-name">{ product.title }</p>
-              <p data-testid="shopping-cart-product-quantity">{ product.quantity }</p>
-              <p>{ product.price }</p>
-              <button
-                type="button"
-                data-testid="product-decrease-quantity"
-                onClick={ () => this.decreaseQuantity(product, product.quantity) }
-              >
-                -
-              </button>
-              <span>{ product.quantity }</span>
-              <button
-                type="button"
-                data-testid="product-increase-quantity"
-                onClick={ () => this.increaseQuantity(product, product.quantity) }
-              >
-                +
-              </button>
-            </div>
-          ))}
+          : (
+            <ul className="shoppingCartPageItems">
+              { cartItems.map((product) => (
+                <CartItem
+                  key={ product.id }
+                  product={ product }
+                  updateCartItems={ this.updateCartItems }
+                />
+              )) }
+            </ul>
+          )}
+
         <Link
-          to="/checkout"
+          className="shoppingCartPageCheckout"
           data-testid="checkout-products"
+          to="/checkout"
         >
-          Checkout
+          finalizar pedido
         </Link>
       </div>
     );
