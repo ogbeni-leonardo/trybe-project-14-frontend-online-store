@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import { getAllSavedItemsOnCart, addProductToCart } from '../js/localStorageFunctions';
 
@@ -67,6 +68,11 @@ class ShoppingCart extends Component {
               </button>
             </div>
           ))}
+            <Link to="/checkout"
+              data-testid="checkout-products"
+            >
+              Checkout
+            </Link>
       </div>
     );
   }
