@@ -65,7 +65,6 @@ class Home extends React.Component {
             { loading && (
               <div className="homePageLoadingContainer">
                 <img alt="loading" src={ spinner } className="homePageLoading" />
-                <p>Carregando...</p>
               </div>
             ) }
 

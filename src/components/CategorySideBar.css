@@ -1,10 +1,10 @@
 .categoriesSideBar {
   background-color: var(--primary);
-  height: calc(100vh - 80px);
+  height: calc(100vh - 90px);
   min-height: 500px;
   overflow: auto;
   padding: 15px 8px;
-  width: 301px;
+  width: 287px;
 }
 
 .categoriesList {

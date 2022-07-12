@@ -13,7 +13,7 @@ class Header extends Component {
     return (
       <header className="header">
         <Link className="storeName" to="/">
-          thyl
+          Thyl
           <span>Store</span>
         </Link>
         <ShoppingCartButton cartSize={ cartSize } />

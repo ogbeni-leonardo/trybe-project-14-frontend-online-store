@@ -19,10 +19,19 @@
   font-size: 14px;
   
   --default-font-color: #212121;
-  --theme: #303F9F;
+  --theme: #0f8b8d;
   --primary: #F5F5F5;
   --secondary: #EEEEEE;
   --tertiary: #E0E0E0;
+}
+
+*::-webkit-scrollbar {
+  background-color: var(--tertiary);
+  width: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--theme);
 }
 
 body {
