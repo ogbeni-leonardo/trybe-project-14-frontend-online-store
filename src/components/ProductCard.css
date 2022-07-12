@@ -1,13 +1,12 @@
 .productCard {
   background-color: var(--secondary);
-  box-shadow: 0 0 10px rgba(0 0 0 / 20%);
+  box-shadow: 0 0 6px rgba(0 0 0 / 20%);
   display: flex;
   flex-direction: column;
   height: 220px;
   min-width: 200px;
   overflow: hidden;
   transition: transform 100ms;
-  width: 200px;
 }
 
 .productCard:hover {
@@ -34,7 +33,7 @@
 }
 
 .productCardName {
-  background-color: rgba(48 63 159 / 50%);
+  background-color: rgb(15 139 141 / 80%);
   bottom: 0;
   color: var(--primary);
   font-size: 0.9rem;
@@ -68,9 +67,10 @@
 }
 
 .productShipping {
-  background-color: var(--theme);
+  background-color: transparent;
+  border: 1px solid #ff8f00;
   border-radius: 20px;
-  color: var(--primary);
+  color: #ff8f00;
   font-size: 0.8rem;
   padding: 4px 8px;
   right: 8px;
@@ -96,7 +96,7 @@
 }
 
 .productCardAddButton {
-  background-color: var(--theme);
+  background-color: var(--default-font-color);
   border-radius: 4px;
   color: var(--primary);
   font-size: 0.8rem;

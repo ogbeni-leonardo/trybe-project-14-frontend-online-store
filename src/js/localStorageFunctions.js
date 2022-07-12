@@ -6,7 +6,7 @@ const productQuantity = (product) => {
   return alreadyExists.length > 0 ? alreadyExists[0].quantity + 1 : 1;
 };
 
-export function addProductToCart(product, quantity) {
+export const addProductToCart = (product, quantity) => {
   // Esta função retorna do localStorage todos os items salvos no carrinho.
   const allSavedCartItems = JSON.parse(localStorage.getItem('thylCartItems'));
   // Primeiro, verifique se este produto já existe no carrinho
@@ -28,9 +28,9 @@ export function addProductToCart(product, quantity) {
 
   allSavedCartItems.push(productItem);
   localStorage.setItem('thylCartItems', JSON.stringify(allSavedCartItems));
-}
+};
 
-export function getQuantityOfProductsOfCart() {
+export const getQuantityOfProductsOfCart = () => {
   const allSavedCartItems = JSON.parse(localStorage.getItem('thylCartItems'));
   /* Caso o localStorage já tenha sido inicializado prossiga... */
   if (allSavedCartItems) {
@@ -39,11 +39,15 @@ export function getQuantityOfProductsOfCart() {
   }
   /* Caso não tenha sido inicializado retorne 0.  */
   return 0;
-}
+};
 
-export function getAllSavedItemsOnCart() {
-  return JSON.parse(localStorage.getItem('thylCartItems'));
-}
+export const getAllSavedItemsOnCart = () => (
+  JSON.parse(localStorage.getItem('thylCartItems')));
+
+export const getTotalPriceOfCart = () => {
+  const allSavedCartItems = getAllSavedItemsOnCart();
+  return allSavedCartItems.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0);
+};
 
 /* Inicializando o localStorage. */
 if (!localStorage.getItem('thylCartItems')) {

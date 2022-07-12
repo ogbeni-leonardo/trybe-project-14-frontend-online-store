@@ -18,9 +18,9 @@
   background-color: var(--secondary);
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
-  height: 35px;
+  height: 38px;
   padding-inline: 10px;
-  width: 350px;
+  width: 360px;
 }
 
 .searchButton {
@@ -28,6 +28,6 @@
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
   color: var(--primary);
-  height: 35px;
+  height: 38px;
   padding-inline: 10px;
 }

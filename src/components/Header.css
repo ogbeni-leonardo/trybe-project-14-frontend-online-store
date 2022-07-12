@@ -3,14 +3,14 @@
   background-color: var(--default-font-color);
   column-gap: 30px;
   display: flex;
-  height: 80px;
+  height: 90px;
   justify-content: space-between;
   padding-inline: 30px;
 }
 
 .storeName {
   color: var(--primary);
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: 600;
   transform: translateY(-1px);
 }

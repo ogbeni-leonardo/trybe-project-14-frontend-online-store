@@ -1,19 +1,63 @@
 .shoppingCartPage {
-  align-items: center;
   display: flex;
   flex-direction: column;
-  padding: 50px;
 }
 
 .shoppingCartPageTitle {
-  margin-bottom: 50px;
+  align-items: center;
+  background-color: var(--default-font-color);
+  color: var(--primary);
+  display: flex;
+  height: 90px;
+  padding-inline: 30px;
   text-align: left;
+}
+
+.shoppingCartPageTitle i {
+  margin-right: 10px;
+}
+
+.shoppingCartPageItemsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  padding: 40px;
 }
 
 .shoppingCartPageItems {
   display: flex;
   flex-direction: column;
+  max-height: 500px;
+  overflow: auto;
+  padding-right: 10px;
   row-gap: 10px;
+}
+
+.shoppingCartPageTotalContainer {
+  align-items: flex-end;
+  align-self: flex-start;
+  background-color: var(--secondary);
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0 0 0 / 15%);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.shoppingCartPageTotal {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.shoppingCartPageTotal span {
+  color: #a8201a;
+  font-size: 1.2rem;
+  margin-left: 5px;
+}
+
+.shoppingCartPageTotal span:before {
+  content: 'R$';
 }
 
 .shoppingCartPageCheckout {
