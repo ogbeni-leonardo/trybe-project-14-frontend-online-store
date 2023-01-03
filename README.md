@@ -1,13 +1,33 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# FrontEnd Online Store
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+Este projeto consiste em uma versão simplificada, sem permanência no banco de dados, de uma loja online. Projeto desenvolvido em equipe dividindo as responsabilidades de acordo com as demandas definidas em um quadro _Kanban_, num cenário próximo ao mercado de trabalho.
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+## Recursos
+
+- Buscar produtos por termos e categorias a partir da API do Mercado Livre;
+- Interagir com os produtos buscados de modo a adicioná-los e removê-los de um carrinho de compras em diferentes quantidades;
+- Visualizar detalhes e avaliações prévias de um produto, bem como criar novas avaliações;
+- Simular a finalização da compra dos itens selecionados.
+
+## Requisitos
+
+Para fazer uso desta aplicação, você precisa ter:
+
+- O `nodejs (v16)` instalado em sua máquina;
+- Um navegador web atualizado.
+
+## Uso
+
+Para iniciar a aplicação:
+
+- Na raiz do diretório instale as dependências com o comando: `npm install`;
+- Após a instalação das dependências, inicie a aplicação com o comando: `npm start`.
+
+## Colaboradores
+
+Este projeto foi desenvolvido com a ajuda de:
+
+- [Harumi Maeda](https://github.com/harumimaeda)
+- [Leandro Coelho](https://github.com/lcoelho3412)
+- [Thiago Viana](https://github.com/thiagorvianas)
+- [Yasmin Amorin](https://github.com/Yasmin358)
